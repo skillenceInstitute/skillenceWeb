@@ -149,7 +149,8 @@
   .course-card p { color: var(--muted); font-size: 0.9rem; line-height: 1.6; position: relative; z-index: 1; }
   .course-meta { display: flex; gap: 1rem; margin-top: 1.5rem; position: relative; z-index: 1; }
   .course-tag { font-size: 0.75rem; font-weight: 500; padding: 0.3rem 0.8rem; border-radius: 100px; border: 1px solid; }
-  .course-arrow { position: absolute; bottom: 2rem; right: 2rem; width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 1.1rem; transition: all 0.2s; z-index: 1; }
+  .course-arrow { position: absolute; bottom: 2rem; right: 2rem; width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 1.1rem; text-decoration: none; transition: all 0.2s; z-index: 2; }
+  .course-arrow:hover, .course-arrow:focus-visible { text-decoration: none; }
   .course-card:hover .course-arrow { border-color: var(--accent); color: var(--accent); transform: translate(3px, -3px); }
 
   /* COMING SOON OVERLAY */
@@ -397,7 +398,7 @@
 
   <div class="courses-grid reveal">
     <!-- Web Dev — AVAILABLE -->
-    <div class="course-card" style="--card-accent: rgba(0,245,160,0.06);" onclick="window.location='courses.html'">
+    <div class="course-card" style="--card-accent: rgba(0,245,160,0.06);" onclick="window.location='courses.html?course=Web%20Development'">
       <div class="course-icon" style="background:rgba(0,245,160,0.1);">🌐</div>
       <h3>Web Development</h3>
       <p>Master HTML, CSS, JavaScript, React, and Node.js. Build full-stack apps from scratch.</p>
@@ -405,7 +406,7 @@
         <span class="course-tag" style="color:var(--accent);border-color:rgba(0,245,160,0.25);background:rgba(0,245,160,0.05);">7 months</span>
         <span class="course-tag" style="color:var(--muted);border-color:var(--border);">Beginner–Advanced</span>
       </div>
-      <div class="course-arrow">→</div>
+      <a class="course-arrow" href="courses.html?course=Web%20Development" aria-label="View Web Development course details">→</a>
     </div>
 
     <!-- Graphic Design — COMING SOON -->
@@ -417,6 +418,7 @@
         <span class="course-tag" style="color:#ff6b35;border-color:rgba(255,107,53,0.25);background:rgba(255,107,53,0.05);">12 weeks</span>
         <span class="course-tag" style="color:var(--muted);border-color:var(--border);">Beginner–Mid</span>
       </div>
+      <a class="course-arrow" href="courses.html?course=Graphic%20Design" aria-label="View Graphic Design course details">→</a>
       <div class="coming-soon-overlay">
         <div class="coming-soon-badge">Coming Soon</div>
         <div class="coming-soon-text">This Course is on the way</div>
@@ -432,6 +434,7 @@
         <span class="course-tag" style="color:var(--accent2);border-color:rgba(0,212,255,0.25);background:rgba(0,212,255,0.05);">10 weeks</span>
         <span class="course-tag" style="color:var(--muted);border-color:var(--border);">Beginner–Mid</span>
       </div>
+      <a class="course-arrow" href="courses.html?course=UI%2FUX%20Design" aria-label="View UI/UX Design course details">→</a>
       <div class="coming-soon-overlay">
         <div class="coming-soon-badge">Coming Soon</div>
         <div class="coming-soon-text">This Course is on the way</div>
@@ -447,6 +450,7 @@
         <span class="course-tag" style="color:#a855f7;border-color:rgba(168,85,247,0.25);background:rgba(168,85,247,0.05);">8 weeks</span>
         <span class="course-tag" style="color:var(--muted);border-color:var(--border);">Beginner</span>
       </div>
+      <a class="course-arrow" href="courses.html?course=Forex%20Trading" aria-label="View Forex Trading course details">→</a>
       <div class="coming-soon-overlay">
         <div class="coming-soon-badge">Coming Soon</div>
         <div class="coming-soon-text">This Course is on the way</div>
@@ -462,6 +466,7 @@
         <span class="course-tag" style="color:#fbbf24;border-color:rgba(251,191,36,0.25);background:rgba(251,191,36,0.05);">14 weeks</span>
         <span class="course-tag" style="color:var(--muted);border-color:var(--border);">Mid–Advanced</span>
       </div>
+      <a class="course-arrow" href="courses.html?course=Data%20Analysis" aria-label="View Data Analysis course details">→</a>
       <div class="coming-soon-overlay">
         <div class="coming-soon-badge">Coming Soon</div>
         <div class="coming-soon-text">This Course is on the way</div>
@@ -477,6 +482,7 @@
         <span class="course-tag" style="color:#ef4444;border-color:rgba(239,68,68,0.25);background:rgba(239,68,68,0.05);">20 weeks</span>
         <span class="course-tag" style="color:var(--muted);border-color:var(--border);">Mid–Advanced</span>
       </div>
+      <a class="course-arrow" href="courses.html?course=Cybersecurity" aria-label="View Cybersecurity course details">→</a>
       <div class="coming-soon-overlay">
         <div class="coming-soon-badge">Coming Soon</div>
         <div class="coming-soon-text">This Course is on the way</div>

@@ -109,6 +109,8 @@
   .pill-muted { color: var(--muted); border-color: var(--border); }
 
   .curriculum-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin: 2rem 0; }
+  .curriculum-intro { color: #b0bac8; font-weight: 500; margin-top: 1.4rem; }
+  .curriculum-intro[hidden] { display: none; }
   .curriculum-item {
     display: flex; align-items: flex-start; gap: 0.7rem;
     background: rgba(255,255,255,0.02); border: 1px solid var(--border);
@@ -117,6 +119,11 @@
   }
   .curriculum-item::before { content: '⚡'; font-size: 0.8rem; flex-shrink: 0; margin-top: 0.1rem; }
   .curriculum-item span { color: #c0cad8; line-height: 1.4; }
+
+  .course-careers { margin: 1.5rem 0; }
+  .course-careers[hidden] { display: none; }
+  .course-careers h3 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 0.8rem; }
+  .career-paths-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.8rem; }
 
   .enroll-btn {
     display: inline-flex; align-items: center; gap: 0.6rem;
@@ -162,8 +169,12 @@
     background: var(--card); padding: 2rem 1.8rem;
     position: relative; overflow: hidden;
     transition: background 0.3s;
+    cursor: pointer;
+    width: 100%; border: 0; color: inherit; text-align: left; font: inherit;
   }
   .cs-card:hover { background: #141a28; }
+  .cs-card:focus-visible { outline: 2px solid var(--accent); outline-offset: -3px; }
+  .cs-card[aria-pressed="true"] { background: #141a28; box-shadow: inset 0 0 0 1px rgba(0,245,160,0.45); }
 
   .cs-icon { font-size: 1.8rem; margin-bottom: 1rem; filter: grayscale(0.5); }
   .cs-card h4 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; color: #7a8494; }
@@ -335,18 +346,19 @@
 
       <!-- Body -->
       <div class="active-course-body">
-        <span class="active-course-icon">🌐</span>
-        <h2>Web Development</h2>
-        <p>From your first HTML tag to deploying full-stack applications — this track gives you everything you need to become a professional web developer. No experience required.</p>
+        <span class="active-course-icon" id="activeCourseIcon">🌐</span>
+        <h2 id="activeCourseTitle">Web Development</h2>
+        <p id="activeCourseDescription">From your first HTML tag to deploying full-stack applications — this track gives you everything you need to become a professional web developer. No experience required.</p>
 
-        <div class="course-pills">
+        <div class="course-pills" id="activeCoursePills">
           <span class="pill pill-green">7 months</span>
           <span class="pill pill-blue">Beginner → Advanced</span>
           <span class="pill pill-muted">Live + Self-Paced</span>
           <span class="pill pill-muted">Portfolio Included</span>
         </div>
 
-        <div class="curriculum-grid">
+        <p class="curriculum-intro" id="activeCourseCurriculumIntro" hidden></p>
+        <div class="curriculum-grid" id="activeCourseCurriculum">
           <div class="curriculum-item"><span>HTML5 & Semantic Markup</span></div>
           <div class="curriculum-item"><span>CSS3, Flexbox & Grid</span></div>
           <div class="curriculum-item"><span>JavaScript Fundamentals</span></div>
@@ -357,6 +369,11 @@
           <div class="curriculum-item"><span>Freelancing & Getting Clients</span></div>
           <div class="curriculum-item"><span>SCHOLARSHIP AVAILABLE</span></div>
         </div>
+
+        <section class="course-careers" id="activeCourseCareerPaths" hidden>
+          <h3>Career Paths</h3>
+          <div class="career-paths-list"></div>
+        </section>
 
         <a href="https://docs.google.com/forms/d/e/1FAIpQLSfMuZa5_nPomIr6UO0jNx0qPJ20Nf5-JMV4Ewt_7qmDc4F1Fw/viewform?usp=publish-editor" class="enroll-btn">
           Enroll in This Track
@@ -373,24 +390,24 @@
       <div class="active-course-panel">
         <div class="panel-block">
           <div class="panel-label">Duration</div>
-          <div class="panel-value">7 months</div>
+          <div class="panel-value" id="activeCourseDuration">7 months</div>
         </div>
         <div class="panel-block">
           <div class="panel-label">Level</div>
-          <div class="panel-value">Beginner to Advanced</div>
+          <div class="panel-value" id="activeCourseLevel">Beginner to Advanced</div>
         </div>
         <div class="panel-block">
           <div class="panel-label">Format</div>
-          <div class="panel-value">Live sessions + Self-paced modules</div>
+          <div class="panel-value" id="activeCourseFormat">Live sessions + Self-paced modules</div>
         </div>
         <div class="panel-block">
           <div class="panel-label">Mentorship</div>
-          <div class="panel-value accent">1-on-1 weekly sessions</div>
+          <div class="panel-value accent" id="activeCourseMentorship">1-on-1 weekly sessions</div>
         </div>
         <div class="panel-divider"></div>
         <div class="panel-block">
           <div class="panel-label">You Will Graduate With</div>
-          <ul class="outcomes-list">
+          <ul class="outcomes-list" id="activeCourseOutcomes">
             <li>A live portfolio of 6+ projects</li>
             <li>Fullstack development skills</li>
             <li>Verified digital certificate</li>
@@ -410,37 +427,37 @@
   </div>
 
   <div class="cs-grid reveal">
-    <div class="cs-card">
+    <div class="cs-card" role="button" tabindex="0" aria-pressed="false">
       <div class="cs-icon">🎨</div>
       <h4>Graphic Design</h4>
       <p>Adobe Suite, brand identity, print & digital design for real clients.</p>
       <div class="cs-badge">Now Enrolling</div>
     </div>
-    <div class="cs-card">
+    <div class="cs-card" role="button" tabindex="0" aria-pressed="false">
       <div class="cs-icon">✏️</div>
       <h4>UI/UX Design</h4>
       <p>Figma, design systems, user research, wireframing and prototyping.</p>
       <div class="cs-badge">Now Enrolling</div>
     </div>
-    <div class="cs-card">
+    <div class="cs-card" role="button" tabindex="0" aria-pressed="false">
       <div class="cs-icon">📈</div>
       <h4>Forex Trading</h4>
       <p>Understand currency pairs, pips, lots and spreads, learn trends, support and resistance.</p>
       <div class="cs-badge">Now Enrolling</div>
     </div>
-    <div class="cs-card">
+    <div class="cs-card" role="button" tabindex="0" aria-pressed="false">
       <div class="cs-icon">📊</div>
       <h4>Data Analysis</h4>
       <p>Excel, SQL, Python, Power BI — turn raw data into business insights.</p>
       <div class="cs-badge">Now Enrolling</div>
     </div>
-    <div class="cs-card">
+    <div class="cs-card" role="button" tabindex="0" aria-pressed="false">
       <div class="cs-icon">🔐</div>
       <h4>Cybersecurity</h4>
       <p>Network security, ethical hacking, threat detection & cert prep.</p>
       <div class="cs-badge">Now Enrolling</div>
     </div>
-    <div class="cs-card">
+    <div class="cs-card" role="button" tabindex="0" aria-pressed="false">
       <div class="cs-icon">📱</div>
       <h4>Mobile Development</h4>
       <p>Build native and cross-platform mobile apps for iOS and Android.</p>
@@ -511,6 +528,160 @@
     entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
   }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
   reveals.forEach(el => observer.observe(el));
+
+  const courseDetails = {
+    'Web Development': {
+      icon: '🌐', description: 'From your first HTML tag to deploying full-stack applications — this track gives you everything you need to become a professional web developer. No experience required.',
+      duration: '7 months', level: 'Beginner to Advanced', format: 'Live sessions + Self-paced modules', mentorship: '1-on-1 weekly sessions',
+      curriculum: ['HTML5 & Semantic Markup', 'CSS3, Flexbox & Grid', 'JavaScript Fundamentals', 'ES6+ & Modern JS', 'Git & Version Control', 'Deployment & Hosting', 'Responsive Design', 'Freelancing & Getting Clients', 'Scholarship available'],
+      outcomes: ['A live portfolio of 6+ projects', 'Fullstack development skills', 'Verified digital certificate', 'Freelancing & income strategy', 'Job placement support', 'Access to alumni network']
+    },
+    'Graphic Design': {
+      icon: '🎨', description: 'Learn how to transform ideas into compelling visual designs for brands, businesses, social media, marketing campaigns and digital platforms.',
+      duration: '3 months + 1 month free internship', level: 'Beginner friendly', format: 'Practical design projects', mentorship: 'Instructor guidance',
+      curriculum: ['Design principles', 'Layout and composition', 'Branding and visual identity', 'Logo design', 'Flyer and poster design'],
+      careerPaths: ['Graphic Designer', 'Brand Designer', 'Social Media Designer', 'Visual Designer', 'Freelance Designer'],
+      outcomes: ['Apply design principles', 'Create brand and visual identity concepts', 'Design logos, flyers, and posters']
+    },
+    'UI/UX Design': {
+      icon: '✏️', description: 'Learn how to research, plan and design digital products that are visually appealing, intuitive and easy to use.',
+      duration: '4 months + 1 month free internship', level: 'Beginner friendly', format: 'Practical design projects', mentorship: 'Instructor guidance',
+      curriculumIntro: 'You get to practically understand',
+      curriculum: ['UX', 'UI', 'Figma'],
+      careerPaths: ['UI Designer', 'UX Designer', 'Product Designer', 'UX Researcher', 'Interaction Designer', 'Freelance Product Designer'],
+      outcomes: ['Research user needs', 'Plan intuitive digital products', 'Design user interfaces in Figma']
+    },
+    'Forex Trading': {
+      icon: '📈', description: 'Develop a structured understanding of the foreign exchange market, technical analysis, risk management and disciplined trade execution.',
+      duration: '3 months', level: 'Beginner friendly', format: 'Practical trading training', mentorship: 'Instructor guidance',
+      curriculum: ['Forex Fundamentals', 'Technical Analysis', 'Risk Management', 'Practical Training', 'Strategy development'],
+      outcomes: ['Understand foreign exchange market fundamentals', 'Apply technical analysis and risk management', 'Build disciplined trade execution strategies']
+    },
+    'Data Analysis': {
+      icon: '📊', description: 'Transform raw data into meaningful insights that help businesses and organizations make better decisions.',
+      duration: '4 months + 1 month free internship', level: 'Beginner friendly', format: 'Practical data exercises', mentorship: 'Instructor guidance',
+      curriculum: ['Excel', 'SQL', 'Python', 'Power BI', 'Business insights'],
+      careerPaths: ['Data Analyst', 'Business Intelligence Analyst', 'Reporting Analyst', 'Junior Data Specialist', 'Data Visualization Analyst'],
+      outcomes: ['Work with data using Excel, SQL, and Python', 'Build Power BI reports', 'Communicate business insights']
+    },
+    Cybersecurity: {
+      icon: '🔐', description: 'Learn how to identify, understand and defend against cyber threats while developing practical skills in network security, ethical hacking and security assessment.',
+      duration: '6 months + 2 months free internship', level: 'Beginner friendly', format: 'Practical security training', mentorship: 'Instructor guidance',
+      curriculum: ['Cybersecurity and Ethical Hacking'],
+      careerPaths: ['Cybersecurity Analyst', 'SOC Analyst', 'Security Tester', 'Junior Penetration Tester', 'Network Security Assistant', 'Cybersecurity Support Specialist'],
+      outcomes: ['Identify and understand cyber threats', 'Apply network security fundamentals', 'Practice ethical hacking and security assessment']
+    },
+    'App Development': {
+      icon: '📱', description: 'Design, build, test and deploy functional mobile applications for Android and iOS.',
+      duration: '6 months', level: 'Beginner friendly', format: 'Practical app projects', mentorship: 'Instructor guidance',
+      curriculum: ['Mobile app design', 'Android development', 'iOS development', 'Application testing', 'App deployment'],
+      careerPaths: ['Mobile App Developer', 'Flutter Developer', 'Junior Software Developer', 'Cross-platform Developer', 'Freelance App Developer'],
+      outcomes: ['Design functional mobile applications', 'Build apps for Android and iOS', 'Test and deploy mobile applications']
+    }
+  };
+
+  const activeCourse = document.querySelector('.active-course');
+  const courseGrid = document.querySelector('.cs-grid');
+  const renderCourseCards = activeTitle => {
+    const cards = Object.entries(courseDetails)
+      .filter(([title]) => title !== activeTitle)
+      .map(([title, details]) => {
+        const card = document.createElement('div');
+        card.className = 'cs-card';
+        card.dataset.course = title;
+        card.setAttribute('role', 'button');
+        card.tabIndex = 0;
+
+        const icon = document.createElement('div');
+        icon.className = 'cs-icon';
+        icon.textContent = details.icon;
+        const heading = document.createElement('h4');
+        heading.textContent = title;
+        const description = document.createElement('p');
+        description.textContent = details.description;
+        const badge = document.createElement('div');
+        badge.className = 'cs-badge';
+        badge.textContent = 'Now Enrolling';
+        card.append(icon, heading, description, badge);
+        return card;
+      });
+    courseGrid.replaceChildren(...cards);
+  };
+  renderCourseCards(document.getElementById('activeCourseTitle').textContent.trim());
+
+  const createCourseItems = (items, className) => {
+    const fragment = document.createDocumentFragment();
+    items.forEach(text => {
+      const item = document.createElement(className === 'curriculum-item' ? 'div' : 'li');
+      if (className) item.className = className;
+      if (className === 'curriculum-item') {
+        const label = document.createElement('span');
+        label.textContent = text;
+        item.append(label);
+      } else {
+        item.textContent = text;
+      }
+      fragment.append(item);
+    });
+    return fragment;
+  };
+  const selectCourse = title => {
+    const details = courseDetails[title];
+    if (!details) return;
+
+    document.getElementById('activeCourseIcon').textContent = details.icon;
+    document.getElementById('activeCourseTitle').textContent = title;
+    document.getElementById('activeCourseDescription').textContent = details.description;
+    const curriculumIntro = document.getElementById('activeCourseCurriculumIntro');
+    curriculumIntro.textContent = details.curriculumIntro || '';
+    curriculumIntro.hidden = !details.curriculumIntro;
+    document.getElementById('activeCourseDuration').textContent = details.duration;
+    document.getElementById('activeCourseLevel').textContent = details.level;
+    document.getElementById('activeCourseFormat').textContent = details.format;
+    document.getElementById('activeCourseMentorship').textContent = details.mentorship;
+    document.getElementById('activeCourseCurriculum').replaceChildren(createCourseItems(details.curriculum, 'curriculum-item'));
+    const careerPathsSection = document.getElementById('activeCourseCareerPaths');
+    careerPathsSection.hidden = !details.careerPaths;
+    careerPathsSection.querySelector('.career-paths-list').replaceChildren(
+      createCourseItems(details.careerPaths || [], 'curriculum-item')
+    );
+    document.getElementById('activeCourseOutcomes').replaceChildren(createCourseItems(details.outcomes));
+
+    const pills = title === 'Web Development'
+      ? ['7 months', 'Beginner → Advanced', 'Live + Self-Paced', 'Portfolio Included']
+      : title === 'UI/UX Design'
+        ? ['Now Enrolling', 'UX', 'UI', 'Figma']
+      : title === 'Cybersecurity'
+        ? ['Now Enrolling', 'Network security', 'Ethical hacking', 'Security assessment']
+      : title === 'Graphic Design'
+        ? ['Now Enrolling', 'Design principles', 'Brand identity', 'Career paths']
+        : ['Now Enrolling', 'Beginner friendly', 'Project-based', 'Instructor guided'];
+    document.getElementById('activeCoursePills').replaceChildren(...pills.map((text, index) => {
+      const pill = document.createElement('span');
+      pill.className = `pill ${index === 0 ? 'pill-green' : index === 1 ? 'pill-blue' : 'pill-muted'}`;
+      pill.textContent = text;
+      return pill;
+    }));
+    renderCourseCards(title);
+    const navHeight = document.querySelector('nav').getBoundingClientRect().height;
+    const courseTop = window.scrollY + activeCourse.getBoundingClientRect().top;
+    window.scrollTo({ top: Math.max(0, courseTop - navHeight - 16), behavior: 'smooth' });
+  };
+
+  courseGrid.addEventListener('click', event => {
+    const card = event.target.closest('.cs-card');
+    if (card) selectCourse(card.dataset.course);
+  });
+  courseGrid.addEventListener('keydown', event => {
+    const card = event.target.closest('.cs-card');
+    if (card && (event.key === 'Enter' || event.key === ' ')) {
+      event.preventDefault();
+      selectCourse(card.dataset.course);
+    }
+  });
+
+  const requestedCourse = new URLSearchParams(window.location.search).get('course');
+  if (requestedCourse && courseDetails[requestedCourse]) selectCourse(requestedCourse);
 
   window.addEventListener('scroll', () => {
     navEl.style.background = window.scrollY > 50 ? 'rgba(6,8,16,0.95)' : 'rgba(6,8,16,0.7)';
